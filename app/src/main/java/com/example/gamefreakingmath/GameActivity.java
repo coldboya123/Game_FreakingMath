@@ -3,9 +3,11 @@ package com.example.gamefreakingmath;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +19,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     TextView txt_score, txt_cal, dia_score;
     ImageButton btn_true, btn_false, btn_close;
     Random random;
-    int a, b, c, score = 0;
+    int a, b, c, score = 0, i = 0;
     Dialog dialog;
     Button btn_back, btn_playagain;
+    ProgressBar progressBar;
+    CountDownTimer timer;
+    boolean timeup = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
 
         init();
+
+        timer = new CountDownTimer(0, 0) {
+            @Override
+            public void onTick(long l) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
 
         random = new Random();
         GenerateRandom();
@@ -40,6 +57,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
+        progressBar = findViewById(R.id.progress);
         txt_score = findViewById(R.id.score);
         txt_cal = findViewById(R.id.calculate);
         btn_close = findViewById(R.id.btn_close);
@@ -61,6 +79,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         txt_cal.setText(a + " + " + b + " = " + c);
     }
 
+    private void OnGameLose() {
+        dia_score.setText("Your score: " + score);
+        timeup = true;
+        dialog.show();
+    }
+
+    private void CountdownTime() {
+        i = 0;
+        progressBar.setProgress(i);
+        timer = new CountDownTimer(3000, 1000) {
+            @Override
+            public void onTick(long l) {
+                i++;
+                progressBar.setProgress(i * 100 / (3000 / 1000));
+            }
+
+            @Override
+            public void onFinish() {
+                if (!timeup) {
+                    OnGameLose();
+                }
+            }
+        };
+        timer.start();
+    }
+
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     public void onClick(View v) {
@@ -71,21 +115,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_true:
                 if ((a + b) == c) {
                     score++;
+                    timeup = false;
                     txt_score.setText(score + "");
+                    timer.cancel();
                     GenerateRandom();
+                    CountdownTime();
                 } else {
-                    dia_score.setText("Your score: " + score);
-                    dialog.show();
+                    OnGameLose();
                 }
                 break;
             case R.id.btn_false:
                 if ((a + b) != c) {
                     score++;
+                    timeup = false;
                     txt_score.setText(score + "");
+                    timer.cancel();
                     GenerateRandom();
+                    CountdownTime();
                 } else {
-                    dia_score.setText("Your score: " + score);
-                    dialog.show();
+                    OnGameLose();
                 }
                 break;
             case R.id.btn_back:
@@ -96,6 +144,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 dialog.hide();
                 txt_score.setText(0 + "");
                 score = 0;
+                progressBar.setProgress(0);
                 GenerateRandom();
                 break;
         }

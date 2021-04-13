@@ -7,6 +7,16 @@
     android:background="#03A9F4"
     tools:context=".GameActivity">
 
+    <ProgressBar
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/progress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:progress="0"
+        android:max="100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progressDrawable="@drawable/customprogress"/>
+
     <TextView
         android:id="@+id/txtscore"
         android:layout_width="wrap_content"
@@ -17,7 +27,7 @@
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/progress" />
 
     <TextView
         android:id="@+id/score"
@@ -29,7 +39,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/txtscore"
         app:layout_constraintStart_toEndOf="@id/txtscore"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/txtscore" />
 
     <ImageButton
         android:id="@+id/btn_close"
