@@ -88,11 +88,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void CountdownTime() {
         i = 0;
         progressBar.setProgress(i);
-        timer = new CountDownTimer(3000, 1000) {
+        timer = new CountDownTimer(3000, 10) {
             @Override
             public void onTick(long l) {
                 i++;
-                progressBar.setProgress(i * 100 / (3000 / 1000));
+                progressBar.setProgress(i * 100 / (3000 / 10));
             }
 
             @Override
