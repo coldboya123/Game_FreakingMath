@@ -19,7 +19,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     TextView txt_score, txt_cal, dia_score;
     ImageButton btn_true, btn_false, btn_close;
     Random random;
-    int a, b, c, score = 0, i = 0;
+    int a, b, c, score = 0, i;
     Dialog dialog;
     Button btn_back, btn_playagain;
     ProgressBar progressBar;
