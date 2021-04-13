@@ -31,10 +31,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         random = new Random();
         GenerateRandom();
-        for (int i = 0; i < 10; i++) {
-            GenerateRandom();
-            Log.d("test", "GenerateRandom: " + a + "+" + b + "=" + c);
-        }
 
         btn_true.setOnClickListener(this);
         btn_false.setOnClickListener(this);
