@@ -79,6 +79,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         txt_cal.setText(a + " + " + b + " = " + c);
     }
 
+    @SuppressLint("SetTextI18n")
     private void OnGameLose() {
         dia_score.setText("Your score: " + score);
         timeup = true;
